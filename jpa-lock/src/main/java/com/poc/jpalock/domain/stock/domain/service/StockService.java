@@ -17,6 +17,12 @@ public class StockService {
     private final StockStore stockStore;
     private final StockReader stockReader;
 
+    @Transactional(readOnly = true)
+    public StockInfo findById(final Long id) {
+        final Stock stock = stockReader.findById(id);
+        return new StockInfo(stockStore.saveAndFlush(stock));
+    }
+
     @Transactional
     public StockInfo decrease(final StockCommand stockCommand) {
         final Stock stock = stockReader.findById(stockCommand.id())
@@ -60,6 +66,13 @@ public class StockService {
 
     @Transactional
     public StockInfo decreaseWithSpinLock(final StockCommand stockCommand) {
+        final Stock stock = stockReader.findByIdWithOptimisticLock(stockCommand.id())
+                .decrease(stockCommand.quantity());
+        return new StockInfo(stockStore.saveAndFlush(stock));
+    }
+
+    @Transactional
+    public StockInfo decreaseWithDistributedLock(final StockCommand stockCommand) {
         final Stock stock = stockReader.findByIdWithOptimisticLock(stockCommand.id())
                 .decrease(stockCommand.quantity());
         return new StockInfo(stockStore.saveAndFlush(stock));
