@@ -2,7 +2,7 @@ package com.poc.jpalock.domain.stock.domain.service;
 
 import com.poc.jpalock.domain.stock.domain.model.StockCommand;
 import com.poc.jpalock.domain.stock.domain.model.StockInfo;
-import com.poc.jpalock.domain.stock.domain.store.LockRepository;
+import com.poc.jpalock.domain.stock.domain.persist.LockRepository;
 import com.poc.jpalock.global.annotation.FacadeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;

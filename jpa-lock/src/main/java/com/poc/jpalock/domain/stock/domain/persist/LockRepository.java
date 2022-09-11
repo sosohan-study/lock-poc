@@ -1,4 +1,4 @@
-package com.poc.jpalock.domain.stock.domain.store;
+package com.poc.jpalock.domain.stock.domain.persist;
 
 import com.poc.jpalock.domain.stock.domain.persist.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
