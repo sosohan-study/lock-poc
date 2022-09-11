@@ -1,12 +1,10 @@
 package com.poc.jpalock.domain.stock.domain.persist;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Setter
 @Getter
@@ -26,16 +24,17 @@ public class Stock {
     @Column
     private Long quantity;
 
+    @Version
+    private Long version;
+
     public Stock(final Long id, final Long productId, final Long quantity) {
-        this.id = id;
-        this.productId = productId;
-        this.quantity = quantity;
+        this(id, productId, quantity, 0L);
     }
 
     public Stock decrease(final Long quantity) {
         if (Math.subtractExact(this.quantity, quantity) < MINIMUM_QUANTITY) {
             throw new RuntimeException();
         }
-        return new Stock(id, productId, Math.subtractExact(this.quantity, quantity));
+        return new Stock(id, productId, Math.subtractExact(this.quantity, quantity), version);
     }
 }

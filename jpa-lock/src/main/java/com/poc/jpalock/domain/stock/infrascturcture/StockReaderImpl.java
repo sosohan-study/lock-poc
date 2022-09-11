@@ -21,4 +21,16 @@ public class StockReaderImpl implements StockReader {
         return stockRepository.findById(id)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    @Override
+    public Stock findByIdWithPessimisticLock(final Long id) {
+        return stockRepository.findByIdWithPessimisticLock(id)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
+    public Stock findByIdWithOptimisticLock(final Long id) {
+        return stockRepository.findByIdWithOptimisticLock(id)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }
