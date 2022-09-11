@@ -4,6 +4,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: passwd
+    hikari:
+      maximum-pool-size: 40
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
 
 logging:
   level:
