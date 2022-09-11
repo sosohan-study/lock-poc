@@ -57,4 +57,11 @@ public class StockService {
                 .decrease(stockCommand.quantity());
         return new StockInfo(stockStore.saveAndFlush(stock));
     }
+
+    @Transactional
+    public StockInfo decreaseWithSpinLock(final StockCommand stockCommand) {
+        final Stock stock = stockReader.findByIdWithOptimisticLock(stockCommand.id())
+                .decrease(stockCommand.quantity());
+        return new StockInfo(stockStore.saveAndFlush(stock));
+    }
 }
